@@ -61,15 +61,6 @@ const symptoms = {
     }
 };
 
-    "Sore Throat": { conditions: "Viral infection, allergy", advice: "Warm fluids, lozenges" },
-    "Nausea": { conditions: "Food poisoning, motion sickness", advice: "Rest, ginger tea, light meals" },
-    "Fatigue": { conditions: "Anemia, stress, sleep disorder", advice: "Rest, hydrate, consider a checkup" },
-    "Stomach Ache": { conditions: "Indigestion, gas, cramps", advice: "Warm compress, avoid spicy food" },
-    "Diarrhea": { conditions: "Infection, food intolerance", advice: "Rehydrate, bland food" },
-    "Back Pain": { conditions: "Muscle strain, poor posture", advice: "Stretch, rest, apply heat/ice" },
-    "Dizziness": { conditions: "Low BP, dehydration, anxiety", advice: "Sit down, drink water" }
-};
-
 function showSymptomChecker() {
     document.getElementById("home").classList.add("hidden");
     document.getElementById("symptom-checker").classList.remove("hidden");
@@ -85,8 +76,16 @@ function showMedicationReminder() {
 function checkSymptom() {
     const symptom = document.getElementById("symptom-select").value;
     const result = document.getElementById("symptom-result");
+
     if (symptom && symptoms[symptom]) {
-        result.innerHTML = `Possible causes: ${symptoms[symptom].conditions}<br>Advice: ${symptoms[symptom].advice}<br>See a doctor if severe.`;
+        const data = symptoms[symptom];
+        result.innerHTML = `
+            <strong>Possible causes:</strong> ${data.conditions}<br>
+            <strong>Advice:</strong> ${data.advice}<br><br>
+            <iframe width="300" height="170" src="${data.video}" frameborder="0" allowfullscreen></iframe><br><br>
+            <a href="${data.link}" target="_blank">Book a doctor on Practo/Apollo</a><br>
+            <small>See a doctor if symptoms are severe.</small>
+        `;
     } else {
         result.textContent = "Please select a symptom.";
     }
@@ -113,3 +112,4 @@ function addMedication() {
         alert("Please enter both medication name and time.");
     }
 }
+
