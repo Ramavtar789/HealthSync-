@@ -1,48 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HealthSync</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HealthSync</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>
-        <h1>HealthSync</h1>
-    </header>
-    <main>
-        <section id="home">
-            <button onclick="showSymptomChecker()">Log a Symptom</button>
-            <button onclick="showMedicationReminder()">Add Medication</button>
-        </section>
+  <header>
+    <h1>HealthSync</h1>
+  </header>
 
-        <section id="symptom-checker" class="hidden">
-            <h2>Symptom Checker</h2>
-            <select id="symptom-select">
-                <option value="">Select a symptom</option>
-                <option value="Headache">Headache</option>
-                <option value="Fever">Fever</option>
-                <option value="Cough">Cough</option>
-                <option value="Sore Throat">Sore Throat</option>
-                <option value="Nausea">Nausea</option>
-                <option value="Fatigue">Fatigue</option>
-                <option value="Stomach Ache">Stomach Ache</option>
-                <option value="Diarrhea">Diarrhea</option>
-                <option value="Back Pain">Back Pain</option>
-                <option value="Dizziness">Dizziness</option>
-            </select>
-            <button onclick="checkSymptom()">Check Now</button>
-            <p id="symptom-result"></p>
-        </section>
+  <main>
+    <!-- Home Menu -->
+    <section id="home">
+      <button onclick="showSymptomChecker()">Log a Symptom</button>
+      <button onclick="showMedicationReminder()">Add Medication</button>
+    </section>
 
-        <section id="medication-reminder" class="hidden">
-            <h2>Medication Reminder</h2>
-            <input type="text" id="med-name" placeholder="Medication Name">
-            <input type="text" id="med-time" placeholder="Time (e.g., 8:00 AM)">
-            <button onclick="addMedication()">Add Reminder</button>
-            <ul id="med-list"></ul>
-        </section>
-    </main>
-    <script src="script.js"></script>
+    <!-- Symptom Checker -->
+    <section id="symptom-checker" class="hidden">
+      <h2>Symptom Checker</h2>
+      <select id="symptom-select">
+        <option value="">Select a symptom</option>
+        <option value="Cough">Cough</option>
+        <option value="Fever">Fever</option>
+        <option value="Headache">Headache</option>
+        <option value="Anxiety">Anxiety</option>
+        <option value="Stomach Ache">Stomach Ache</option>
+      </select>
+      <button onclick="checkSymptom()">Check Now</button>
+
+      <!-- Results will be injected here -->
+      <div id="symptom-result" class="result-box"></div>
+    </section>
+
+    <!-- Medication Reminder -->
+    <section id="medication-reminder" class="hidden">
+      <h2>Medication Reminder</h2>
+      <input type="text" id="med-name" placeholder="Medication Name" />
+      <input type="text" id="med-time" placeholder="Time (e.g., 8:00 AM)" />
+      <button onclick="addMedication()">Add Reminder</button>
+      <ul id="med-list"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
