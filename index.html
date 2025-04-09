@@ -183,19 +183,45 @@
         }
 
         function goBack() {
-            toggleSection('home');
+            console.log('Back button clicked'); // Debug log
+            const homeSection = document.getElementById('home');
+            const otherSections = ['symptom-checker', 'medication-reminder', 'medicine-info'];
+            
+            // Show home section
+            if (homeSection) {
+                homeSection.classList.remove('hidden');
+                homeSection.classList.add('fade-in');
+            } else {
+                console.error('Home section not found');
+            }
+
+            // Hide all other sections
+            otherSections.forEach(id => {
+                const section = document.getElementById(id);
+                if (section) {
+                    section.classList.add('hidden');
+                    section.classList.remove('fade-in');
+                } else {
+                    console.error(`Section ${id} not found`);
+                }
+            });
         }
 
         function toggleSection(sectionId) {
+            console.log(`Toggling section: ${sectionId}`); // Debug log
             const sections = ['home', 'symptom-checker', 'medication-reminder', 'medicine-info'];
             sections.forEach(id => {
                 const section = document.getElementById(id);
-                if (id === sectionId) {
-                    section.classList.remove('hidden');
-                    section.classList.add('fade-in');
+                if (section) {
+                    if (id === sectionId) {
+                        section.classList.remove('hidden');
+                        section.classList.add('fade-in');
+                    } else {
+                        section.classList.add('hidden');
+                        section.classList.remove('fade-in');
+                    }
                 } else {
-                    section.classList.add('hidden');
-                    section.classList.remove('fade-in');
+                    console.error(`Section ${id} not found`);
                 }
             });
         }
