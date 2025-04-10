@@ -134,7 +134,7 @@
             <button onclick="showSymptomChecker()">Log a Symptom</button>
             <button onclick="showMedicationReminder()">Add Medication</button>
             <button onclick="showMedicineInfo()">Medicine Info</button>
-            <button onclick="showPersonalizedHealth()">Personalized Health</button> <!-- New button -->
+            <button onclick="showPersonalizedHealth()">Personalized Health</button>
             <button onclick="window.open('https://www.google.com/maps/search/hospitals+near+me', '_blank')">Nearby Hospitals</button>
             <button onclick="window.open('https://www.practo.com/', '_blank')">Find a Doctor</button>
             <button onclick="window.location.href='health-tips.html'">Health Tips</button>
@@ -242,23 +242,39 @@
 
     <script>
         // Navigation functions
-        function showSymptomChecker() { toggleSection('symptom-checker'); }
-        function showMedicationReminder() { toggleSection('medication-reminder'); }
-        function showMedicineInfo() { toggleSection('medicine-info'); }
-        function showPersonalizedHealth() { toggleSection('personalized-health'); } // New function
+        function showSymptomChecker() {
+            console.log("Showing Symptom Checker");
+            toggleSection('symptom-checker');
+        }
+        function showMedicationReminder() {
+            console.log("Showing Medication Reminder");
+            toggleSection('medication-reminder');
+        }
+        function showMedicineInfo() {
+            console.log("Showing Medicine Info");
+            toggleSection('medicine-info');
+        }
+        function showPersonalizedHealth() {
+            console.log("Showing Personalized Health");
+            toggleSection('personalized-health');
+        }
 
         function goBack() {
+            console.log("Going Back to Home");
             toggleSection('home');
         }
 
         function toggleSection(sectionId) {
-            const sections = ['home', 'symptom-checker', 'medication-reminder', 'medicine-info', 'personalized-health']; // Updated list
+            console.log("Toggling section:", sectionId);
+            const sections = ['home', 'symptom-checker', 'medication-reminder', 'medicine-info', 'personalized-health'];
             sections.forEach(id => {
                 const section = document.getElementById(id);
                 if (section) {
                     section.classList.toggle('hidden', id !== sectionId);
                     if (id === sectionId) section.classList.add('fade-in');
                     else section.classList.remove('fade-in');
+                } else {
+                    console.error("Section not found:", id);
                 }
             });
         }
@@ -271,7 +287,7 @@
             "Diarrhea": { symptoms: [{ text: "Frequent loose or watery stools", severity: "Moderate" }, { text: "Abdominal cramps", severity: "Moderate" }, { text: "Nausea", severity: "Mild" }, { text: "Dehydration", severity: "Severe" }, { text: "Urgent need to defecate", severity: "Moderate" }], link: "https://www.webmd.com/digestive-disorders/digestive-diseases-diarrhea" },
             "Constipation": { symptoms: [{ text: "Infrequent or hard stools", severity: "Moderate" }, { text: "Straining during bowel movements", severity: "Moderate" }, { text: "Abdominal discomfort", severity: "Moderate" }, { text: "Feeling of incomplete evacuation", severity: "Mild" }], link: "https://www.webmd.com/digestive-disorders/digestive-diseases-constipation" },
             "Abdominal Pain": { symptoms: [{ text: "Cramping or sharp pain in the stomach", severity: "Moderate" }, { text: "Bloating", severity: "Mild" }, { text: "Nausea", severity: "Mild" }, { text: "Vomiting", severity: "Moderate" }, { text: "Loss of appetite", severity: "Mild" }], link: "https://www.webmd.com/pain-management/abdominal-pain-causes-treatments" },
-            U"Headache": { symptoms: [{ text: "Pain or pressure in the head", severity: "Moderate" }, { text: "Sensitivity to light or sound", severity: "Moderate" }, { text: "Nausea", severity: "Moderate" }, { text: "Fatigue", severity: "Mild" }, { text: "Tension in neck or shoulders", severity: "Moderate" }], link: "https://www.webmd.com/migraines-headaches/migraines-headaches-basics" },
+            "Headache": { symptoms: [{ text: "Pain or pressure in the head", severity: "Moderate" }, { text: "Sensitivity to light or sound", severity: "Moderate" }, { text: "Nausea", severity: "Moderate" }, { text: "Fatigue", severity: "Mild" }, { text: "Tension in neck or shoulders", severity: "Moderate" }], link: "https://www.webmd.com/migraines-headaches/migraines-headaches-basics" },
             "Sore Throat": { symptoms: [{ text: "Pain or scratchiness in the throat", severity: "Moderate" }, { text: "Difficulty swallowing", severity: "Moderate" }, { text: "Hoarseness", severity: "Mild" }, { text: "Dry throat", severity: "Mild" }, { text: "Swollen glands in the neck", severity: "Moderate" }], link: "https://www.webmd.com/cold-and-flu/sore-throat-cold-strep-throat-tonsillitis" },
             "Shortness of Breath": { symptoms: [{ text: "Difficulty breathing", severity: "Severe" }, { text: "Rapid breathing", severity: "Moderate" }, { text: "Chest tightness", severity: "Moderate" }, { text: "Wheezing", severity: "Moderate" }, { text: "Feeling of suffocation", severity: "Severe" }], link: "https://www.webmd.com/lung/shortness-breath-dyspnea" },
             "Fatigue": { symptoms: [{ text: "Persistent tiredness", severity: "Moderate" }, { text: "Lack of energy", severity: "Moderate" }, { text: "Difficulty concentrating", severity: "Moderate" }, { text: "Muscle weakness", severity: "Moderate" }, { text: "Sleep disturbances", severity: "Moderate" }], link: "https://www.webmd.com/balance/how-tired-is-too-tired" },
@@ -289,6 +305,7 @@
 
         // Updated Symptom Checker Function with Guidance
         function checkSymptom() {
+            console.log("Checking symptom");
             const select = document.getElementById('symptom-select');
             const resultDiv = document.getElementById('symptom-result');
             const condition = select.value;
@@ -332,6 +349,7 @@
 
         // Medication Reminder
         function addMedication() {
+            console.log("Adding medication");
             const name = document.getElementById('med-name').value.trim();
             const time = document.getElementById('med-time').value;
             const list = document.getElementById('med-list');
@@ -352,6 +370,7 @@
 
         // Medicine Search
         function searchMedicine() {
+            console.log("Searching medicine");
             const query = document.getElementById('medicine-search').value.trim();
             if (!query) {
                 alert('Please enter a medicine name');
@@ -364,6 +383,7 @@
 
         // Personalized Health Insights
         document.getElementById('healthForm').addEventListener('submit', function(e) {
+            console.log("Submitting health form");
             e.preventDefault();
 
             // Get user input values
