@@ -5,180 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ - HealthSync</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        header {
-            text-align: center;
-            padding: 20px;
-            background-color: #007bff;
-            color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .faq-card {
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-left: 4px solid #007bff;
-            border-radius: 5px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .faq-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .faq-question {
-            cursor: pointer;
-            color: #007bff;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .faq-answer {
-            display: none;
-            margin-left: 20px;
-            color: #333;
-        }
-        input[type="text"] {
-            padding: 8px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 200px;
-            font-size: 1rem;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 5px;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #555;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-        @media (max-width: 400px) {
-            input[type="text"], button {
-                width: 100%;
-            }
-            .faq-card {
-                margin-bottom: 10px;
-                padding: 8px;
-            }
-        }
+        body { font-family: Arial, sans-serif; background-color: #f0f0f0; padding: 20px; line-height: 1.6; }
+        header { text-align: center; padding: 20px; background-color: #007bff; color: white; border-radius: 5px; }
+        main { max-width: 800px; margin: 20px auto; background-color: white; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { color: #333; margin-bottom: 10px; }
+        p { margin-bottom: 15px; }
+        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        footer { text-align: center; margin-top: 20px; font-size: 0.9em; color: #555; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <header>
         <h1>FAQ</h1>
-        <p>Informational purposes only. Consult a healthcare professional for advice.</p>
     </header>
     <main>
-        <div>
-            <input type="text" id="faq-search" placeholder="Search FAQs (e.g., fever)">
-            <button onclick="filterFAQs()">Search</button>
-        </div>
-        <div id="faq-container">
-            <div class="faq-card">
-                <div class="faq-question" onclick="toggleAnswer('q1')">What does a fever mean?</div>
-                <div class="faq-answer" id="q1">
-                    <p>A fever (above 100.4°F) often signals your body fighting an infection. Check our <a href="index.html#symptom-checker">Symptom Checker</a> for more symptoms. If severe, consult a doctor.</p>
-                </div>
-            </div>
-            <div class="faq-card">
-                <div class="faq-question" onclick="toggleAnswer('q2')">How can I tell if it’s just a cold?</div>
-                <div class="faq-answer" id="q2">
-                    <p>Look for a runny nose, sneezing, and mild cough. Severe symptoms might indicate something else—use our <a href="index.html#symptom-checker">tool</a> to compare. Seek medical advice if unsure.</p>
-                </div>
-            </div>
-            <div class="faq-card">
-                <div class="faq-question" onclick="toggleAnswer('q3')">When should I worry about a headache?</div>
-                <div class="faq-answer" id="q3">
-                    <p>If it’s sudden, severe, or with vision changes, seek help. Mild headaches can often be managed with rest—see our <a href="health-tips.html">Health Tips</a>. Consult a professional if persistent.</p>
-                </div>
-            </div>
-            <div class="faq-card">
-                <div class="faq-question" onclick="toggleAnswer('q4')">What’s shortness of breath a sign of?</div>
-                <div class="faq-answer" id="q4">
-                    <p>It could be asthma, anxiety, or something serious like a heart issue. Check <a href="index.html#symptom-checker">symptoms</a> and consult a doctor if severe.</p>
-                </div>
-            </div>
-            <div class="faq-card">
-                <div class="faq-question" onclick="toggleAnswer('q5')">Can I trust the Symptom Checker?</div>
-                <div class="faq-answer" id="q5">
-                    <p>It’s a guide, not a diagnosis. Always see a healthcare provider for accurate advice. Use it alongside our <a href="index.html#personalized-health">Personalized Health</a> insights.</p>
-                </div>
-            </div>
-        </div>
+        <h2>Common Health Questions</h2>
+        <p><strong>What does a fever mean?</strong> A fever (above 100.4°F) often signals your body fighting an infection. Check our Symptom Checker for more symptoms.</p>
+        <p><strong>How can I tell if it’s just a cold?</strong> Look for a runny nose, sneezing, and mild cough. Severe symptoms might indicate something else—use our tool to compare.</p>
+        <p><strong>When should I worry about a headache?</strong> If it’s sudden, severe, or with vision changes, seek help. Mild headaches can often be managed with rest—see our Health Tips.</p>
+        <p><strong>What’s shortness of breath a sign of?</strong> It could be asthma, anxiety, or something serious like a heart issue. Check symptoms and consult a doctor if severe.</p>
+        <p><strong>Can I trust the Symptom Checker?</strong> It’s a guide, not a diagnosis. Always see a healthcare provider for accurate advice.</p>
         <button onclick="window.location.href='index.html'">Back to Home</button>
     </main>
     <footer>
         <p><a href="privacy.html">Privacy Policy</a> | <a href="about.html">About</a></p>
     </footer>
-
-    <script>
-        // Toggle FAQ answers
-        function toggleAnswer(id) {
-            const answer = document.getElementById(id);
-            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-            answer.classList.add('fade-in');
-        }
-
-        // Filter FAQs based on search
-        function filterFAQs() {
-            const searchTerm = document.getElementById('faq-search').value.toLowerCase();
-            const faqs = document.getElementsByClassName('faq-card');
-            let found = false;
-
-            for (let faq of faqs) {
-                const text = faq.textContent.toLowerCase();
-                faq.style.display = text.includes(searchTerm) ? 'block' : 'none';
-                if (text.includes(searchTerm)) found = true;
-            }
-
-            if (!found && searchTerm) {
-                alert("No FAQs found for '" + searchTerm + "'. Try another keyword!");
-            }
-        }
-
-        // Load with first FAQ open (optional)
-        document.addEventListener('DOMContentLoaded', () => {
-            toggleAnswer('q1');
-        });
-    </script>
 </body>
 </html>

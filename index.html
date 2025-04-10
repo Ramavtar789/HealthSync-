@@ -3,26 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HealthSync: Symptom checker, medication reminders, personalized health insights, and health tips for your wellness.">
+    <meta name="keywords" content="symptom checker, medication reminder, personalized health, health tool, health tips">
     <title>HealthSync</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             padding: 20px;
             line-height: 1.6;
-            margin: 0;
         }
         header {
             text-align: center;
             padding: 20px;
             background-color: #007bff;
             color: white;
+            margin-bottom: 20px;
             border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         main {
             max-width: 800px;
-            margin: 20px auto;
+            margin: 0 auto;
             background-color: white;
             padding: 20px;
             border-radius: 5px;
@@ -31,37 +37,43 @@
         section {
             margin-bottom: 20px;
         }
-        select, input[type="text"], button {
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
+        .hidden {
+            display: none;
         }
         button {
+            padding: 10px 20px;
             background-color: #007bff;
             color: white;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
+            margin: 5px;
             transition: background-color 0.3s ease;
         }
         button:hover {
             background-color: #0056b3;
         }
-        .result-box, .health-score, .med-reminder {
+        select, input {
+            padding: 8px;
+            margin: 5px 0;
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .result-box {
             margin-top: 10px;
-            padding: 10px;
+            padding: 15px;
             background-color: #f9f9f9;
             border-radius: 5px;
+            border: 1px solid #eee;
         }
-        canvas {
-            max-width: 100%;
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
         }
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #555;
+        li {
+            padding: 5px 0;
         }
         a {
             color: #007bff;
@@ -70,62 +82,243 @@
         a:hover {
             text-decoration: underline;
         }
-        @media (max-width: 400px) {
-            select, input[type="text"], button {
-                width: 100%;
-            }
+        .section-title {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .severity-mild { color: #28a745; }
+        .severity-moderate { color: #ffc107; }
+        .severity-severe { color: #dc3545; }
+        .severity-legend {
+            font-size: 0.9em;
+            margin-top: 10px;
+            color: #555;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        /* Additional styles for Personalized Health */
+        #personalized-health input[type="range"] {
+            width: 100%;
+            max-width: 300px;
+        }
+        #personalized-health .insights-box {
+            margin-top: 10px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            text-align: left;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>HealthSync</h1>
-        <p>Online for informational purposes only. Consult a healthcare professional.</p>
+        <p>Online for informational purposes only</p>
     </header>
+
     <main>
-        <section id="symptom-checker">
-            <h2>Symptom Checker</h2>
+        <!-- Home Menu -->
+        <section id="home">
+            <button onclick="showSymptomChecker()">Log a Symptom</button>
+            <button onclick="showMedicationReminder()">Add Medication</button>
+            <button onclick="showMedicineInfo()">Medicine Info</button>
+            <button onclick="showPersonalizedHealth()">Personalized Health</button>
+            <button onclick="window.open('https://www.google.com/maps/search/hospitals+near+me', '_blank')">Nearby Hospitals</button>
+            <button onclick="window.open('https://www.practo.com/', '_blank')">Find a Doctor</button>
+            <button onclick="window.location.href='health-tips.html'">Health Tips</button>
+            <button onclick="window.location.href='faq.html'">FAQ</button>
+            <button onclick="window.location.href='about.html'">About</button>
+        </section>
+
+        <!-- Symptom Checker -->
+        <section id="symptom-checker" class="hidden">
+            <h2 class="section-title">Symptom Checker</h2>
             <select id="symptom-select">
-                <option value="">Select a Symptom</option>
-                <option value="Headache">Headache</option>
+                <option value="">Select a condition</option>
                 <option value="Fever">Fever</option>
+                <option value="Cold">Cold</option>
                 <option value="Cough">Cough</option>
-                <option value="Sore Throat">Sore Throat</option>
-                <option value="Nausea">Nausea</option>
-                <option value="Fatigue">Fatigue</option>
-                <option value="Stomach Ache">Stomach Ache</option>
                 <option value="Diarrhea">Diarrhea</option>
-                <option value="Back Pain">Back Pain</option>
-                <option value="Dizziness">Dizziness</option>
+                <option value="Constipation">Constipation</option>
                 <option value="Abdominal Pain">Abdominal Pain</option>
+                <option value="Headache">Headache</option>
+                <option value="Sore Throat">Sore Throat</option>
+                <option value="Shortness of Breath">Shortness of Breath</option>
+                <option value="Fatigue">Fatigue</option>
+                <option value="Malaria">Malaria</option>
+                <option value="Tuberculosis">Tuberculosis</option>
+                <option value="Diabetes">Diabetes</option>
+                <option value="Hypertension">Hypertension</option>
+                <option value="Myocardial Infarction">Myocardial Infarction</option>
+                <option value="Cerebrovascular Accident">Cerebrovascular Accident (CVA)</option>
+                <option value="Cancer">Cancer</option>
+                <option value="Asthma">Asthma</option>
+                <option value="Allergy">Allergy</option>
+                <option value="Depression">Depression</option>
             </select>
             <button onclick="checkSymptom()">Check Now</button>
-            <button onclick="window.location.href='#home'">Back</button>
-            <div id="result" class="result-box">Please select a condition.</div>
-            <p>Legend: <span style="color: #90ee90;">Mild</span> <span style="color: #ffff00;">Moderate</span> <span style="color: #ff4500;">Severe</span></p>
+            <button onclick="goBack()">Back</button>
+            <div id="symptom-result" class="result-box"></div>
         </section>
 
-        <section id="medication-reminder">
-            <h2>Medication Reminder</h2>
+        <!-- Medication Reminder -->
+        <section id="medication-reminder" class="hidden">
+            <h2 class="section-title">Medication Reminder</h2>
             <input type="text" id="med-name" placeholder="Medication Name">
-            <input type="text" id="med-time" placeholder="Time (e.g., 14:00)">
-            <button onclick="addReminder()">Add Reminder</button>
-            <div id="reminder-list" class="med-reminder"></div>
+            <input type="time" id="med-time">
+            <button onclick="addMedication()">Add Reminder</button>
+            <button onclick="goBack()">Back</button>
+            <ul id="med-list"></ul>
         </section>
 
-        <section id="personalized-health">
-            <h2>Personalized Health</h2>
-            <button onclick="logHealthData()">Log Health Data</button>
-            <div id="health-score" class="health-score">Health Score: N/A</div>
-            <canvas id="healthChart" width="400" height="200"></canvas>
+        <!-- Medicine Information -->
+        <section id="medicine-info" class="hidden">
+            <h2 class="section-title">Medicine Information</h2>
+            <input type="text" id="medicine-search" placeholder="Enter medicine name">
+            <button onclick="searchMedicine()">Search</button>
+            <button onclick="goBack()">Back</button>
+            <p>Search for detailed medicine information on WebMD</p>
+        </section>
+
+        <!-- Personalized Health Insights -->
+        <section id="personalized-health" class="hidden">
+            <h2 class="section-title">Personalized Health Insights</h2>
+            <p>Enter your health data below to get custom recommendations!</p>
+            
+            <form id="healthForm">
+                <!-- Activity Levels -->
+                <label for="steps">How many steps do you take daily?</label>
+                <select id="steps" name="steps">
+                    <option value="low">Low: <5,000 steps</option>
+                    <option value="medium">Medium: 5,000-10,000 steps</option>
+                    <option value="high">High: >10,000 steps</option>
+                </select>
+
+                <!-- Sleep Patterns -->
+                <label for="sleep">How many hours do you sleep per night? <span id="sleepValue">7</span></label>
+                <input type="range" id="sleep" name="sleep" min="4" max="10" value="7" oninput="document.getElementById('sleepValue').textContent = this.value">
+
+                <!-- Heart Rate -->
+                <label for="heartRate">What’s your average resting heart rate? (bpm)</label>
+                <input type="number" id="heartRate" name="heartRate" placeholder="e.g., 70" min="30" max="200">
+
+                <!-- Eating Habits -->
+                <label for="diet">Describe your diet:</label>
+                <select id="diet" name="diet">
+                    <option value="high-protein">High-Protein</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="balanced">Balanced</option>
+                    <option value="high-carb">High-Carb</option>
+                </select>
+
+                <!-- Submit Button -->
+                <button type="submit">Get My Insights</button>
+                <button type="button" onclick="goBack()">Back</button>
+            </form>
+
+            <!-- Output Section -->
+            <div id="insights" class="insights-box" style="display: none;">
+                <h3>Your Personalized Insights</h3>
+                <p id="insights-text"></p>
+            </div>
         </section>
     </main>
+
     <footer>
         <p><a href="privacy.html">Privacy Policy</a> | <a href="about.html">About</a></p>
-        <p><a href="health-tips.html">Health Tips</a> | <a href="faq.html">FAQ</a></p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+    <script>
+        // Navigation functions
+        function showSymptomChecker() {
+            console.log("Showing Symptom Checker");
+            toggleSection('symptom-checker');
+        }
+        function showMedicationReminder() {
+            console.log("Showing Medication Reminder");
+            toggleSection('medication-reminder');
+        }
+        function showMedicineInfo() {
+            console.log("Showing Medicine Info");
+            toggleSection('medicine-info');
+        }
+        function showPersonalizedHealth() {
+            console.log("Showing Personalized Health");
+            toggleSection('personalized-health');
+        }
+
+        function goBack() {
+            console.log("Going Back to Home");
+            toggleSection('home');
+        }
+
+        function toggleSection(sectionId) {
+            console.log("Toggling section:", sectionId);
+            const sections = ['home', 'symptom-checker', 'medication-reminder', 'medicine-info', 'personalized-health'];
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                if (section) {
+                    section.classList.toggle('hidden', id !== sectionId);
+                    if (id === sectionId) section.classList.add('fade-in');
+                    else section.classList.remove('fade-in');
+                } else {
+                    console.error("Section not found:", id);
+                }
+            });
+        }
+        // Symptom Checker Data with Severity
+        const symptomsData = {
+            "Fever": { symptoms: [{ text: "Increased body temperature (above 100.4°F)", severity: "Severe" }, { text: "Chills or sweating", severity: "Moderate" }, { text: "Fatigue", severity: "Mild" }, { text: "Headache", severity: "Moderate" }, { text: "Muscle aches", severity: "Moderate" }, { text: "Loss of appetite", severity: "Mild" }, { text: "Thirst", severity: "Mild" }], link: "https://www.webmd.com/first-aid/fevers-causes-symptoms-treatments" },
+            "Cold": { symptoms: [{ text: "Runny or stuffy nose", severity: "Mild" }, { text: "Sneezing", severity: "Mild" }, { text: "Sore throat", severity: "Moderate" }, { text: "Mild cough", severity: "Mild" }, { text: "Fatigue", severity: "Mild" }, { text: "Mild headache", severity: "Mild" }], link: "https://www.webmd.com/cold-and-flu/cold-guide" },
+            "Cough": { symptoms: [{ text: "Persistent dry or wet cough", severity: "Moderate" }, { text: "Sore throat", severity: "Moderate" }, { text: "Chest discomfort", severity: "Moderate" }, { text: "Hoarseness", severity: "Mild" }, { text: "Mild fatigue", severity: "Mild" }], link: "https://www.webmd.com/lung/cough-guide" },
+            "Diarrhea": { symptoms: [{ text: "Frequent loose or watery stools", severity: "Moderate" }, { text: "Abdominal cramps", severity: "Moderate" }, { text: "Nausea", severity: "Mild" }, { text: "Dehydration", severity: "Severe" }, { text: "Urgent need to defecate", severity: "Moderate" }], link: "https://www.webmd.com/digestive-disorders/digestive-diseases-diarrhea" },
+            "Constipation": { symptoms: [{ text: "Infrequent or hard stools", severity: "Moderate" }, { text: "Straining during bowel movements", severity: "Moderate" }, { text: "Abdominal discomfort", severity: "Moderate" }, { text: "Feeling of incomplete evacuation", severity: "Mild" }], link: "https://www.webmd.com/digestive-disorders/digestive-diseases-constipation" },
+            "Abdominal Pain": { symptoms: [{ text: "Cramping or sharp pain in the stomach", severity: "Moderate" }, { text: "Bloating", severity: "Mild" }, { text: "Nausea", severity: "Mild" }, { text: "Vomiting", severity: "Moderate" }, { text: "Loss of appetite", severity: "Mild" }], link: "https://www.webmd.com/pain-management/abdominal-pain-causes-treatments" },
+            "Headache": { symptoms: [{ text: "Pain or pressure in the head", severity: "Moderate" }, { text: "Sensitivity to light or sound", severity: "Moderate" }, { text: "Nausea", severity: "Moderate" }, { text: "Fatigue", severity: "Mild" }, { text: "Tension in neck or shoulders", severity: "Moderate" }], link: "https://www.webmd.com/migraines-headaches/migraines-headaches-basics" },
+            "Sore Throat": { symptoms: [{ text: "Pain or scratchiness in the throat", severity: "Moderate" }, { text: "Difficulty swallowing", severity: "Moderate" }, { text: "Hoarseness", severity: "Mild" }, { text: "Dry throat", severity: "Mild" }, { text: "Swollen glands in the neck", severity: "Moderate" }], link: "https://www.webmd.com/cold-and-flu/sore-throat-cold-strep-throat-tonsillitis" },
+            "Shortness of Breath": { symptoms: [{ text: "Difficulty breathing", severity: "Severe" }, { text: "Rapid breathing", severity: "Moderate" }, { text: "Chest tightness", severity: "Moderate" }, { text: "Wheezing", severity: "Moderate" }, { text: "Feeling of suffocation", severity: "Severe" }], link: "https://www.webmd.com/lung/shortness-breath-dyspnea" },
+            "Fatigue": { symptoms: [{ text: "Persistent tiredness", severity: "Moderate" }, { text: "Lack of energy", severity: "Moderate" }, { text: "Difficulty concentrating", severity: "Moderate" }, { text: "Muscle weakness", severity: "Moderate" }, { text: "Sleep disturbances", severity: "Moderate" }], link: "https://www.webmd.com/balance/how-tired-is-too-tired" },
+            "Malaria": { symptoms: [{ text: "High fever", severity: "Severe" }, { text: "Chills and sweating", severity: "Moderate" }, { text: "Headache", severity: "Moderate" }, { text: "Muscle aches", severity: "Moderate" }, { text: "Nausea and vomiting", severity: "Moderate" }, { text: "Fatigue", severity: "Moderate" }], link: "https://www.webmd.com/a-to-z-guides/malaria-what-is-it" },
+            "Tuberculosis": { symptoms: [{ text: "Persistent cough (sometimes with blood)", severity: "Severe" }, { text: "Chest pain", severity: "Moderate" }, { text: "Night sweats", severity: "Moderate" }, { text: "Fever", severity: "Moderate" }, { text: "Weight loss", severity: "Moderate" }, { text: "Fatigue", severity: "Moderate" }], link: "https://www.webmd.com/lung/understanding-tuberculosis-basics" },
+            "Diabetes": { symptoms: [{ text: "Increased thirst", severity: "Moderate" }, { text: "Frequent urination", severity: "Moderate" }, { text: "Fatigue", severity: "Moderate" }, { text: "Blurred vision", severity: "Moderate" }, { text: "Slow-healing wounds", severity: "Moderate" }, { text: "Unexplained weight loss", severity: "Moderate" }], link: "https://www.webmd.com/diabetes/type-2-diabetes" },
+            "Hypertension": { symptoms: [{ text: "Often asymptomatic", severity: "Mild" }, { text: "Headache (severe cases)", severity: "Moderate" }, { text: "Nosebleeds", severity: "Moderate" }, { text: "Shortness of breath", severity: "Moderate" }, { text: "Dizziness", severity: "Moderate" }], link: "https://www.webmd.com/hypertension-high-blood-pressure/default.htm" },
+            "Myocardial Infarction": { symptoms: [{ text: "Chest pain or pressure", severity: "Severe" }, { text: "Shortness of breath", severity: "Severe" }, { text: "Sweating", severity: "Moderate" }, { text: "Nausea", severity: "Moderate" }, { text: "Pain radiating to arm or jaw", severity: "Severe" }, { text: "Fatigue", severity: "Moderate" }], link: "https://www.webmd.com/heart-disease/understanding-heart-attack-basics" },
+            "Cerebrovascular Accident": { symptoms: [{ text: "Sudden numbness or weakness (especially one side)", severity: "Severe" }, { text: "Confusion", severity: "Severe" }, { text: "Trouble speaking", severity: "Severe" }, { text: "Vision problems", severity: "Severe" }, { text: "Severe headache", severity: "Severe" }], link: "https://www.webmd.com/stroke/default.htm" },
+            "Cancer": { symptoms: [{ text: "Unexplained weight loss", severity: "Moderate" }, { text: "Fatigue", severity: "Moderate" }, { text: "Persistent pain", severity: "Moderate" }, { text: "Lumps or swelling", severity: "Moderate" }, { text: "Changes in skin or moles", severity: "Moderate" }], link: "https://www.webmd.com/cancer/default.htm" },
+            "Asthma": { symptoms: [{ text: "Wheezing", severity: "Moderate" }, { text: "Shortness of breath", severity: "Severe" }, { text: "Chest tightness", severity: "Moderate" }, { text: "Coughing (especially at night)", severity: "Moderate" }, { text: "Difficulty breathing", severity: "Severe" }], link: "https://www.webmd.com/asthma/default.htm" },
+            "Allergy": { symptoms: [{ text: "Sneezing", severity: "Mild" }, { text: "Itchy eyes, nose, or throat", severity: "Mild" }, { text: "Runny nose", severity: "Mild" }, { text: "Watery eyes", severity: "Mild" }, { text: "Rash or hives", severity: "Moderate" }], link: "https://www.webmd.com/allergies/default.htm" },
+            "Depression": { symptoms: [{ text: "Persistent sadness", severity: "Moderate" }, { text: "Loss of interest", severity: "Moderate" }, { text: "Fatigue", severity: "Moderate" }, { text: "Sleep disturbances", severity: "Moderate" }, { text: "Appetite changes", severity: "Moderate" }, { text: "Difficulty concentrating", severity: "Moderate" }], link: "https://www.webmd.com/depression/default.htm" }
+        };
+        // Updated Symptom Checker Function with Guidance
+        function checkSymptom() {
+            console.log("Checking symptom");
+            const select = document.getElementById('symptom-select');
+            const resultDiv = document.getElementById('symptom-result');
+            const condition = select.value;
+            if (condition && symptomsData[condition]) {
+                const symptoms = symptomsData[condition].symptoms;
+                const hasSevere = symptoms.some(s => s.severity === "Severe");
+                const hasModerate = symptoms.some(s => s.severity === "Moderate");
+                let guidance = "";
+                if (hasSevere) {
+                    guidance = "<p><strong>Where to Go:</strong> Seek immediate medical attention at a hospital or call emergency services if symptoms worsen rapidly.</p>";
+                } else if (hasModerate) {
+                    guidance = "<p><strong>Where to Go:</strong> Consult a doctor or visit a clinic for evaluation if symptoms persist or worsen.</p>";
+                } else {
+                    guidance = "<p><strong>Where to Go:</strong> Manage at home with rest and hydration, but see a doctor if symptoms don’t improve.</p>";
+                }
+                resultDiv.innerHTML = `
+                    <h3>${condition} Symptoms:</h3>
+                    <ul>${symptoms.map(s => `<li class="severity

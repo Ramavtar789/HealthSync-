@@ -85,63 +85,8 @@ section {
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* Enhanced Styles for Personalized Health */
-#personalized-health .insights-box {
-    text-align: left;
-    padding: 20px;
-    margin-top: 20px;
-    border-left: 4px solid #007bff;
-    background-color: #f9f9f9;
-}
-
-#personalized-health .insights-box h3 {
-    color: #007bff;
-    margin-bottom: 10px;
-}
-
-#personalized-health .insights-box p {
-    margin: 5px 0;
-    color: #333;
-}
-
-#personalized-health .insights-box em {
-    color: #6c757d;
-    font-style: italic;
-}
-
-#personalized-health .chart-container {
-    margin-top: 20px;
-    max-width: 100%;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-#personalized-health .chart-container canvas {
-    max-width: 100%;
-    height: auto !important;
-}
-
-/* Animation for Insights */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in {
-    animation: fadeIn 0.5s ease-in;
-}
-
-/* Responsive Adjustments */
 @media (max-width: 400px) {
     button, input, select {
         width: 100%;
-    }
-    #personalized-health .chart-container {
-        padding: 5px;
-    }
-    #personalized-health .insights-box {
-        padding: 15px;
     }
 }
