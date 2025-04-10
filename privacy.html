@@ -5,32 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - HealthSync</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f0f0f0; padding: 20px; line-height: 1.6; }
-        header { text-align: center; padding: 20px; background-color: #007bff; color: white; border-radius: 5px; }
-        main { max-width: 800px; margin: 20px auto; background-color: white; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
-        footer { text-align: center; margin-top: 20px; font-size: 0.9em; color: #555; }
-        a { color: #007bff; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .privacy-card {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #007bff;
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .privacy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .privacy-question {
+            cursor: pointer;
+            color: #007bff;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .privacy-details {
+            display: none;
+            margin-left: 20px;
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @media (max-width: 400px) {
+            button {
+                width: 100%;
+            }
+            .privacy-card {
+                margin-bottom: 10px;
+                padding: 8px;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Privacy Policy</h1>
+        <p>Last Updated: April 10, 2025 | Informational purposes only. Consult a professional for advice.</p>
     </header>
     <main>
-        <p>HealthSync values your privacy. This policy outlines how we handle your information:</p>
-        <ul>
-            <li><strong>Data Collection:</strong> We do not collect personal data server-side. Any information (e.g., medication reminders) is stored locally in your browser and not transmitted to us.</li>
-            <li><strong>Third Parties:</strong> Links to external sites (e.g., WebMD) are provided for convenience. We are not responsible for their privacy practices.</li>
-            <li><strong>Changes:</strong> This policy may be updated. Check back for the latest version.</li>
-        </ul>
-        <p>For questions, contact us via the repository (if applicable).</p>
+        <div class="privacy-card fade-in">
+            <div class="privacy-question" onclick="toggleDetails('d1')">What Data Do We Collect?</div>
+            <div class="privacy-details" id="d1">
+                <p>HealthSync does not collect personal data on a server. All information (e.g., symptoms, medication reminders, health data) is stored locally in your browser using <strong>localStorage</strong>. This data stays on your device and is not transmitted to us or any third party unless you choose to share it (e.g., via email feedback).</p>
+            </div>
+        </div>
+        <div class="privacy-card fade-in">
+            <div class="privacy-question" onclick="toggleDetails('d2')">How Do We Handle Third Parties?</div>
+            <div class="privacy-details" id="d2">
+                <p>We provide links to external sites (e.g., WebMD, Practo) for your convenience. We are not responsible for their privacy practices or data handling. Review their policies before using their services.</p>
+            </div>
+        </div>
+        <div class="privacy-card fade-in">
+            <div class="privacy-question" onclick="toggleDetails('d3')">What About Policy Changes?</div>
+            <div class="privacy-details" id="d3">
+                <p>This privacy policy may be updated to reflect changes in our practices or legal requirements. The last update was on April 10, 2025. Check back periodically for the latest version.</p>
+            </div>
+        </div>
+        <div class="privacy-card fade-in">
+            <div class="privacy-question" onclick="toggleDetails('d4')">How Can You Contact Us?</div>
+            <div class="privacy-details" id="d4">
+                <p>For questions or concerns, provide feedback via our <a href="about.html">contact form</a> or email us at <a href="mailto:ramavtar789@example.com">ramavtar789@example.com</a>. Replace with your real email if desired.</p>
+            </div>
+        </div>
         <button onclick="window.location.href='index.html'">Back to Home</button>
     </main>
     <footer>
         <p><a href="privacy.html">Privacy Policy</a> | <a href="about.html">About</a></p>
     </footer>
+
+    <script>
+        // Toggle privacy details
+        function toggleDetails(id) {
+            const details = document.getElementById(id);
+            details.style.display = details.style.display === 'block' ? 'none' : 'block';
+            details.classList.add('fade-in');
+        }
+
+        // Load with first section open (optional)
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleDetails('d1');
+        });
+    </script>
 </body>
 </html>
