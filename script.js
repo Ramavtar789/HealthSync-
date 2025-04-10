@@ -1,3 +1,4 @@
+// Symptom data
 const symptoms = {
     "Headache": {
         conditions: "Tension, Migraine, Dehydration",
@@ -59,7 +60,7 @@ const symptoms = {
         video: "https://www.youtube.com/embed/Tl4W5e5XQpE",
         link: "https://www.practo.com/neurologist"
     },
-    "Abdominal Pain": { // Added to fix the issue
+    "Abdominal Pain": {
         conditions: "Indigestion, Infection, Cramps",
         advice: "Rest, hydrate, avoid heavy meals; see a doctor if severe or with fever.",
         video: "https://www.youtube.com/embed/example_abdominal", // Replace with real URL
@@ -67,6 +68,7 @@ const symptoms = {
     }
 };
 
+// Symptom Checker
 function checkSymptom() {
     const symptomSelect = document.getElementById("symptom-select");
     const result = document.getElementById("result");
@@ -88,9 +90,83 @@ function checkSymptom() {
     }
 }
 
-// Add event listener for Enter key (optional enhancement)
-document.getElementById("symptom-select").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        checkSymptom();
+// Medication Reminder
+function addReminder() {
+    const medName = document.getElementById("med-name").value;
+    const medTime = document.getElementById("med-time").value;
+    if (medName && medTime) {
+        const reminder = { name: medName, time: medTime };
+        let reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+        reminders.push(reminder);
+        localStorage.setItem("reminders", JSON.stringify(reminders));
+        displayReminders();
+        document.getElementById("med-name").value = "";
+        document.getElementById("med-time").value = "";
+    } else {
+        alert("Please enter both medication name and time.");
     }
+}
+
+function displayReminders() {
+    const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+    const reminderList = document.getElementById("reminder-list");
+    reminderList.innerHTML = reminders.map(r => `<p>${r.name} at ${r.time}</p>`).join("");
+}
+
+// Personalized Health
+let healthData = JSON.parse(localStorage.getItem("healthData")) || [];
+
+function logHealthData() {
+    const symptom = prompt("Enter symptom (e.g., Headache):");
+    const severity = prompt("Enter severity (Mild/Moderate/Severe):");
+    if (symptom && severity) {
+        healthData.push({ symptom, severity, date: new Date().toLocaleDateString() });
+        localStorage.setItem("healthData", JSON.stringify(healthData));
+        updateHealthScore();
+        updateChart();
+    }
+}
+
+function updateHealthScore() {
+    const recentData = healthData.slice(-5); // Last 5 entries
+    const severeCount = recentData.filter(d => d.severity === "Severe").length;
+    const moderateCount = recentData.filter(d => d.severity === "Moderate").length;
+    const mildCount = recentData.filter(d => d.severity === "Mild").length;
+    const total = severeCount + moderateCount + mildCount;
+    const score = total ? (mildCount + moderateCount * 0.5) / total * 100 : 0;
+    document.getElementById("health-score").textContent = `Health Score: ${score.toFixed(1)}%`;
+}
+
+function updateChart() {
+    const ctx = document.getElementById("healthChart").getContext("2d");
+    const labels = healthData.map(d => d.date);
+    const data = healthData.map(d => {
+        return { x: d.date, y: d.severity === "Mild" ? 1 : d.severity === "Moderate" ? 2 : 3 };
+    });
+
+    if (window.myChart) window.myChart.destroy();
+    window.myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+            datasets: [{
+                label: "Severity Trend",
+                data: data,
+                borderColor: "#007bff",
+                fill: false
+            }]
+        },
+        options: {
+            scales: {
+                x: { title: { display: true, text: "Date" } },
+                y: { title: { display: true, text: "Severity (1=Mild, 2=Moderate, 3=Severe)" }, min: 0, max: 4 }
+            }
+        }
+    });
+}
+
+// Initialize
+document.addEventListener("DOMContentLoaded", () => {
+    displayReminders();
+    updateHealthScore();
+    updateChart();
 });

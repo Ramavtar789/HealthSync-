@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthSync</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            line-height: 1.6;
+            margin: 0;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        select, input[type="text"], button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result-box, .health-score, .med-reminder {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        canvas {
+            max-width: 100%;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 400px) {
+            select, input[type="text"], button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HealthSync</h1>
+        <p>Online for informational purposes only. Consult a healthcare professional.</p>
+    </header>
+    <main>
+        <section id="symptom-checker">
+            <h2>Symptom Checker</h2>
+            <select id="symptom-select">
+                <option value="">Select a Symptom</option>
+                <option value="Headache">Headache</option>
+                <option value="Fever">Fever</option>
+                <option value="Cough">Cough</option>
+                <option value="Sore Throat">Sore Throat</option>
+                <option value="Nausea">Nausea</option>
+                <option value="Fatigue">Fatigue</option>
+                <option value="Stomach Ache">Stomach Ache</option>
+                <option value="Diarrhea">Diarrhea</option>
+                <option value="Back Pain">Back Pain</option>
+                <option value="Dizziness">Dizziness</option>
+                <option value="Abdominal Pain">Abdominal Pain</option>
+            </select>
+            <button onclick="checkSymptom()">Check Now</button>
+            <button onclick="window.location.href='#home'">Back</button>
+            <div id="result" class="result-box">Please select a condition.</div>
+            <p>Legend: <span style="color: #90ee90;">Mild</span> <span style="color: #ffff00;">Moderate</span> <span style="color: #ff4500;">Severe</span></p>
+        </section>
+
+        <section id="medication-reminder">
+            <h2>Medication Reminder</h2>
+            <input type="text" id="med-name" placeholder="Medication Name">
+            <input type="text" id="med-time" placeholder="Time (e.g., 14:00)">
+            <button onclick="addReminder()">Add Reminder</button>
+            <div id="reminder-list" class="med-reminder"></div>
+        </section>
+
+        <section id="personalized-health">
+            <h2>Personalized Health</h2>
+            <button onclick="logHealthData()">Log Health Data</button>
+            <div id="health-score" class="health-score">Health Score: N/A</div>
+            <canvas id="healthChart" width="400" height="200"></canvas>
+        </section>
+    </main>
+    <footer>
+        <p><a href="privacy.html">Privacy Policy</a> | <a href="about.html">About</a></p>
+        <p><a href="health-tips.html">Health Tips</a> | <a href="faq.html">FAQ</a></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
