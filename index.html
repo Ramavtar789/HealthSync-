@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="HealthSync: Symptom checker, medication reminders, and health tips for your wellness.">
-    <meta name="keywords" content="symptom checker, medication reminder, health tool, health tips">
+    <meta name="description" content="HealthSync: Symptom checker, medication reminders, personalized health insights, and health tips for your wellness.">
+    <meta name="keywords" content="symptom checker, medication reminder, personalized health, health tool, health tips">
     <title>HealthSync</title>
     <style>
         * {
@@ -107,6 +107,19 @@
         .fade-in {
             animation: fadeIn 0.5s ease-in;
         }
+        /* Additional styles for Personalized Health */
+        #personalized-health input[type="range"] {
+            width: 100%;
+            max-width: 300px;
+        }
+        #personalized-health .insights-box {
+            margin-top: 10px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -121,6 +134,7 @@
             <button onclick="showSymptomChecker()">Log a Symptom</button>
             <button onclick="showMedicationReminder()">Add Medication</button>
             <button onclick="showMedicineInfo()">Medicine Info</button>
+            <button onclick="showPersonalizedHealth()">Personalized Health</button> <!-- New button -->
             <button onclick="window.open('https://www.google.com/maps/search/hospitals+near+me', '_blank')">Nearby Hospitals</button>
             <button onclick="window.open('https://www.practo.com/', '_blank')">Find a Doctor</button>
             <button onclick="window.location.href='health-tips.html'">Health Tips</button>
@@ -177,6 +191,49 @@
             <button onclick="goBack()">Back</button>
             <p>Search for detailed medicine information on WebMD</p>
         </section>
+
+        <!-- Personalized Health Insights -->
+        <section id="personalized-health" class="hidden">
+            <h2 class="section-title">Personalized Health Insights</h2>
+            <p>Enter your health data below to get custom recommendations!</p>
+            
+            <form id="healthForm">
+                <!-- Activity Levels -->
+                <label for="steps">How many steps do you take daily?</label>
+                <select id="steps" name="steps">
+                    <option value="low">Low: <5,000 steps</option>
+                    <option value="medium">Medium: 5,000-10,000 steps</option>
+                    <option value="high">High: >10,000 steps</option>
+                </select>
+
+                <!-- Sleep Patterns -->
+                <label for="sleep">How many hours do you sleep per night? <span id="sleepValue">7</span></label>
+                <input type="range" id="sleep" name="sleep" min="4" max="10" value="7" oninput="document.getElementById('sleepValue').textContent = this.value">
+
+                <!-- Heart Rate -->
+                <label for="heartRate">What’s your average resting heart rate? (bpm)</label>
+                <input type="number" id="heartRate" name="heartRate" placeholder="e.g., 70" min="30" max="200">
+
+                <!-- Eating Habits -->
+                <label for="diet">Describe your diet:</label>
+                <select id="diet" name="diet">
+                    <option value="high-protein">High-Protein</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="balanced">Balanced</option>
+                    <option value="high-carb">High-Carb</option>
+                </select>
+
+                <!-- Submit Button -->
+                <button type="submit">Get My Insights</button>
+                <button type="button" onclick="goBack()">Back</button>
+            </form>
+
+            <!-- Output Section -->
+            <div id="insights" class="insights-box" style="display: none;">
+                <h3>Your Personalized Insights</h3>
+                <p id="insights-text"></p>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -188,13 +245,14 @@
         function showSymptomChecker() { toggleSection('symptom-checker'); }
         function showMedicationReminder() { toggleSection('medication-reminder'); }
         function showMedicineInfo() { toggleSection('medicine-info'); }
+        function showPersonalizedHealth() { toggleSection('personalized-health'); } // New function
 
         function goBack() {
             toggleSection('home');
         }
 
         function toggleSection(sectionId) {
-            const sections = ['home', 'symptom-checker', 'medication-reminder', 'medicine-info'];
+            const sections = ['home', 'symptom-checker', 'medication-reminder', 'medicine-info', 'personalized-health']; // Updated list
             sections.forEach(id => {
                 const section = document.getElementById(id);
                 if (section) {
@@ -213,7 +271,7 @@
             "Diarrhea": { symptoms: [{ text: "Frequent loose or watery stools", severity: "Moderate" }, { text: "Abdominal cramps", severity: "Moderate" }, { text: "Nausea", severity: "Mild" }, { text: "Dehydration", severity: "Severe" }, { text: "Urgent need to defecate", severity: "Moderate" }], link: "https://www.webmd.com/digestive-disorders/digestive-diseases-diarrhea" },
             "Constipation": { symptoms: [{ text: "Infrequent or hard stools", severity: "Moderate" }, { text: "Straining during bowel movements", severity: "Moderate" }, { text: "Abdominal discomfort", severity: "Moderate" }, { text: "Feeling of incomplete evacuation", severity: "Mild" }], link: "https://www.webmd.com/digestive-disorders/digestive-diseases-constipation" },
             "Abdominal Pain": { symptoms: [{ text: "Cramping or sharp pain in the stomach", severity: "Moderate" }, { text: "Bloating", severity: "Mild" }, { text: "Nausea", severity: "Mild" }, { text: "Vomiting", severity: "Moderate" }, { text: "Loss of appetite", severity: "Mild" }], link: "https://www.webmd.com/pain-management/abdominal-pain-causes-treatments" },
-            "Headache": { symptoms: [{ text: "Pain or pressure in the head", severity: "Moderate" }, { text: "Sensitivity to light or sound", severity: "Moderate" }, { text: "Nausea", severity: "Moderate" }, { text: "Fatigue", severity: "Mild" }, { text: "Tension in neck or shoulders", severity: "Moderate" }], link: "https://www.webmd.com/migraines-headaches/migraines-headaches-basics" },
+            U"Headache": { symptoms: [{ text: "Pain or pressure in the head", severity: "Moderate" }, { text: "Sensitivity to light or sound", severity: "Moderate" }, { text: "Nausea", severity: "Moderate" }, { text: "Fatigue", severity: "Mild" }, { text: "Tension in neck or shoulders", severity: "Moderate" }], link: "https://www.webmd.com/migraines-headaches/migraines-headaches-basics" },
             "Sore Throat": { symptoms: [{ text: "Pain or scratchiness in the throat", severity: "Moderate" }, { text: "Difficulty swallowing", severity: "Moderate" }, { text: "Hoarseness", severity: "Mild" }, { text: "Dry throat", severity: "Mild" }, { text: "Swollen glands in the neck", severity: "Moderate" }], link: "https://www.webmd.com/cold-and-flu/sore-throat-cold-strep-throat-tonsillitis" },
             "Shortness of Breath": { symptoms: [{ text: "Difficulty breathing", severity: "Severe" }, { text: "Rapid breathing", severity: "Moderate" }, { text: "Chest tightness", severity: "Moderate" }, { text: "Wheezing", severity: "Moderate" }, { text: "Feeling of suffocation", severity: "Severe" }], link: "https://www.webmd.com/lung/shortness-breath-dyspnea" },
             "Fatigue": { symptoms: [{ text: "Persistent tiredness", severity: "Moderate" }, { text: "Lack of energy", severity: "Moderate" }, { text: "Difficulty concentrating", severity: "Moderate" }, { text: "Muscle weakness", severity: "Moderate" }, { text: "Sleep disturbances", severity: "Moderate" }], link: "https://www.webmd.com/balance/how-tired-is-too-tired" },
@@ -303,6 +361,66 @@
             window.open(url, '_blank');
             document.getElementById('medicine-search').value = '';
         }
+
+        // Personalized Health Insights
+        document.getElementById('healthForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get user input values
+            const steps = document.getElementById('steps').value;
+            const sleep = parseInt(document.getElementById('sleep').value);
+            const heartRate = document.getElementById('heartRate').value ? parseInt(document.getElementById('heartRate').value) : null;
+            const diet = document.getElementById('diet').value;
+
+            // Generate personalized insights
+            let insights = "Here are your personalized tips based on recent health research:<br>";
+
+            // Activity Levels Insights
+            if (steps === "low") {
+                insights += "- With <5,000 steps daily, you’re at higher risk for weight gain. Aim for 7,500 steps to boost heart health.<br>";
+            } else if (steps === "medium") {
+                insights += "- Your 5,000-10,000 steps are a solid start! Push toward 10,000 daily to lower BMI and improve fitness.<br>";
+            } else if (steps === "high") {
+                insights += "- Over 10,000 steps daily is fantastic! Keep it up to maintain cardiovascular health and energy.<br>";
+            }
+
+            // Sleep Patterns Insights
+            if (sleep < 7) {
+                insights += "- Sleeping <7 hours raises hunger hormones, risking overeating. Aim for 7-9 hours nightly.<br>";
+            } else if (sleep >= 7 && sleep <= 9) {
+                insights += "- Your 7-9 hours of sleep is ideal for recovery and metabolism—great job!<br>";
+            } else if (sleep > 9) {
+                insights += "- Over 9 hours might mean poor sleep quality. Check for interruptions or consult a pro.<br>";
+            }
+
+            // Heart Rate Insights
+            if (heartRate) {
+                if (heartRate < 60) {
+                    insights += "- A resting heart rate below 60 bpm suggests good fitness, but see a doctor if you feel dizzy.<br>";
+                } else if (heartRate >= 60 && heartRate <= 80) {
+                    insights += "- Your 60-80 bpm resting heart rate is in a healthy range—nice work!<br>";
+                } else if (heartRate > 80) {
+                    insights += "- Above 80 bpm could mean stress or low fitness. Try relaxation techniques or check with a doctor.<br>";
+                }
+            } else {
+                insights += "- No heart rate entered. Tracking it can reveal fitness and stress levels!<br>";
+            }
+
+            // Eating Habits Insights
+            if (diet === "high-protein") {
+                insights += "- High-protein diets aid muscle repair, but avoid fatty meals near bedtime to protect sleep.<br>";
+            } else if (diet === "vegetarian") {
+                insights += "- Vegetarian eating can improve sleep if balanced—watch B12 and iron intake.<br>";
+            } else if (diet === "balanced") {
+                insights += "- A balanced diet supports steady energy and sleep. Keep it up with varied nutrients!<br>";
+            } else if (diet === "high-carb") {
+                insights += "- High-carb diets fuel activity but may disrupt sleep if eaten late. Shift carbs earlier in the day.<br>";
+            }
+
+            // Display the insights
+            document.getElementById('insights-text').innerHTML = insights;
+            document.getElementById('insights').style.display = 'block';
+        });
     </script>
 </body>
 </html>
