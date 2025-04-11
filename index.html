@@ -57,47 +57,6 @@
     </section>
   </main>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      function toggleSection(id) {
-        document.querySelectorAll("section").forEach(sec => sec.classList.add("hidden"));
-        const section = document.getElementById(id);
-        if (section) section.classList.remove("hidden");
-      }
-
-      window.showSymptomChecker = () => toggleSection("symptom-checker");
-      window.showMedicationReminder = () => toggleSection("medication-reminder");
-      window.showPersonalizedHealth = () => toggleSection("personalized-health");
-      window.goBack = () => toggleSection("home");
-
-      window.checkSymptom = function () {
-        const symptom = document.getElementById("symptom-select").value;
-        const result = document.getElementById("symptom-result");
-        result.textContent = symptom ? "Processing: " + symptom : "Please select a symptom.";
-      };
-
-      window.addMedication = function () {
-        const name = document.getElementById("med-name").value.trim();
-        const time = document.getElementById("med-time").value.trim();
-        const list = document.getElementById("med-list");
-
-        if (name && time) {
-          const item = document.createElement("li");
-          item.textContent = name + " - " + time;
-          const btn = document.createElement("button");
-          btn.textContent = "Delete";
-          btn.onclick = () => item.remove();
-          item.appendChild(btn);
-          list.appendChild(item);
-
-          document.getElementById("med-name").value = "";
-          document.getElementById("med-time").value = "";
-          alert("Reminder added!");
-        } else {
-          alert("Please enter both name and time.");
-        }
-      };
-    });
 <script src="script.js"></script>
 </body>
 </html>
